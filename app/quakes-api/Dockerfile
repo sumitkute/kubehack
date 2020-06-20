@@ -1,11 +1,13 @@
-FROM node:10.9.0-alpine
+FROM node:12.16.0-alpine
 
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm ci
 
 COPY . .
-ENV NODE_ENV "development"
+ARG NODE_ENV="container"
+ENV NODE_ENV ${NODE_ENV}
 EXPOSE 3012
 
-CMD [ "npm", "run", "container" ]
+# CMD [ "npm", "run", "container" ]
+CMD [ "sh", "-c", "npm run ${NODE_ENV}"]

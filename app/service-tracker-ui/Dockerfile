@@ -5,7 +5,10 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
-ENV NODE_ENV "development"
+ARG NODE_ENV="container"
+ENV NODE_ENV ${NODE_ENV}
+
 EXPOSE 8080
 
-CMD [ "npm", "run", "container" ]
+# CMD [ "npm", "run", "container" ]
+CMD [ "sh", "-c", "npm run ${NODE_ENV}"]

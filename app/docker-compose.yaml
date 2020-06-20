@@ -14,13 +14,14 @@ services:
   data-api:
     build: 
       context: data-api
+      args:
+      - NODE_ENV=${NODE_ENV} 
     ports:
     - "3009:3009"
     environment:
     - APPINSIGHTS_INSTRUMENTATIONKEY=${INSTRUMENTATION_KEY} 
     - MONGODB_USER=${MONGO_USERNAME}
     - MONGODB_PASSWORD=${MONGO_PASSWORD}
-    - NODE_ENV=${NODE_ENV}
     links: 
     - nosqldata
     depends_on: 
