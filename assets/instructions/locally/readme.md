@@ -34,6 +34,10 @@ services:
     - nosqldata
     depends_on: 
     - "nosqldata"
+  flights-api:
+  quakes-api:
+  weather-api:
+  service-tracker-ui:
    ```
     5. ENV for flights, weather and quakes are APPINSIGHTS_INSTRUMENTATIONKEY, DATA_SERVICE_URI
     6. ENV for service-tracker-ui are QUAKES_API_ROOT,WEATHER_API_ROOT, FLIGHT_API_ROOT
