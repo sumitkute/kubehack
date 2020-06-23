@@ -6,7 +6,7 @@ The following are the basic requirements to start the labs. Individual labs may 
 * [Azure Cloud Shell](https://shell.azure.com) or [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
 * [Docker Desktop](https://www.docker.com/products/docker-desktop)
   
-## Application
+## Application architecture
 
 ![Application architecture diagram](/assets/img/app-architecture.png "Application architecture diagram")
 
