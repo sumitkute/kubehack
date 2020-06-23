@@ -28,16 +28,16 @@ services:
     - "3009:3009"
     environment:
     - APPINSIGHTS_INSTRUMENTATIONKEY=${INSTRUMENTATION_KEY} 
-    - MONGODB_USER=${MONGO_USERNAME}
-    - MONGODB_PASSWORD=${MONGO_PASSWORD}
+    - MONGODB_USER=${MONGO_USERNAME} // use the same which you defined in init-mongo.js
+    - MONGODB_PASSWORD=${MONGO_PASSWORD} // use the same which you defined in init-mongo.js
     links: 
     - nosqldata
     depends_on: 
     - "nosqldata"
-  flights-api:
-  quakes-api:
-  weather-api:
-  service-tracker-ui:
+ flights-api:
+ quakes-api:
+ weather-api:
+ service-tracker-ui:
    ```
     5. ENV for flights, weather and quakes are APPINSIGHTS_INSTRUMENTATIONKEY, DATA_SERVICE_URI
     6. ENV for service-tracker-ui are QUAKES_API_ROOT,WEATHER_API_ROOT, FLIGHT_API_ROOT
