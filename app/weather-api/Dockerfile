@@ -10,4 +10,4 @@ ENV NODE_ENV ${NODE_ENV}
 
 EXPOSE 3015
 
-CMD [ "sh", "-c", "npm run ${NODE_ENV}"]
+CMD [ "npm", "run", "container" ]

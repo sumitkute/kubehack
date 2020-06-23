@@ -9,5 +9,4 @@ ARG NODE_ENV="container"
 ENV NODE_ENV ${NODE_ENV}
 EXPOSE 3009
 
-# CMD [ "npm", "run", ${NODE_ENV} ]
-CMD [ "sh", "-c", "npm run ${NODE_ENV}"]
+CMD [ "npm", "run", "container" ]

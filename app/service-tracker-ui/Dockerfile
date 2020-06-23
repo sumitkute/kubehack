@@ -10,5 +10,4 @@ ENV NODE_ENV ${NODE_ENV}
 
 EXPOSE 8080
 
-# CMD [ "npm", "run", "container" ]
-CMD [ "sh", "-c", "npm run ${NODE_ENV}"]
+CMD [ "npm", "run", "container" ]
