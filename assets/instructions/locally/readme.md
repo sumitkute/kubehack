@@ -1,7 +1,7 @@
-When we are running it locally you need to create a docker-compose file to define all the services and its dependencies
-1. Create a Application Insight instance and get its instrumentation key.
-2. The data-api container docker file should pass the parameter in CMD  as "local" to connect to Mongo DB running locally and "container" to use cosmosDB
-3. You need to create a user when mongo db image is created. The init files is present in app folder.  Example of mongo DB is given below
+For running the application locally, you need to create a docker-compose file to define all the services and their dependencies. The following are some of the things that you will need to do: <br />
+1. Create an Application Insights instance and fetch its instrumentation key.
+2. The data-api container docker file should pass the parameter in CMD  as **local** to connect to Mongo DB running locally (in a container) and "container" to use CosmosDB. So to run the application locally, please set the parameter in CMD as **local**. 
+3. You also need to create a user when MongoDB container instance is created. The same is done using the **init-mongo.js** file present in the **app** folder.  An example of defining the containerized MongoDB service instance in the docker-compose.yaml file is given below: <br />
 
 ```yaml
 version: '3.8'
@@ -18,7 +18,7 @@ services:
     volumes: 
       - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
   ```
- 4. Use links, depends and enviornment variable to pass in docker componse as an example below. Create docker compose file in app folder to use the right context
+ 4. Please note the usage of **links**, **depends** and **enviornment variables** to pass in the docker-componse yaml file from the below example. Create docker-compose file in the **app** folder and mention the correct entry for **context**. 
  
  ```yaml
  data-api:
@@ -39,8 +39,9 @@ services:
  weather-api:
  service-tracker-ui:
    ```
-    5. ENV for flights, weather and quakes are APPINSIGHTS_INSTRUMENTATIONKEY, DATA_SERVICE_URI
-    6. ENV for service-tracker-ui are QUAKES_API_ROOT,WEATHER_API_ROOT, FLIGHT_API_ROOT
-    7. Use docker-componse up/down/build command to test the application
+    5. ENV (environment variables) for flights, weather and quakes are APPINSIGHTS_INSTRUMENTATIONKEY, DATA_SERVICE_URI
+    6. ENV (environment variables) for service-tracker-ui are QUAKES_API_ROOT,WEATHER_API_ROOT, FLIGHT_API_ROOT
+    7. Complete the entire docker-compose file by mentioning the configuration for all the services
+    8. Use docker-compose up/down/build command to test the application
     
     
