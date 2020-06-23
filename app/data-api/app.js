@@ -46,21 +46,21 @@ var mongoPrefix = "mongodb://"
 var muser = process.env.MONGODB_USER
 var mpassword = process.env.MONGODB_PASSWORD
 
-console.log('process.env.NODE_ENV ='+ process.env.NODE_ENV);
+var cosmosConnectString = mongoPrefix.concat(muser,`:`,mpassword,`@`,muser,`.documents.azure.com:10255/hackfest?ssl=true`)
+console.log("******************** (ENV) ***************" + process.env.NODE_ENV)
 if (process.env.NODE_ENV != 'local') {
-  var cosmosConnectString = mongoPrefix.concat(muser,`:`,muser,`@`,muser,`.documents.azure.com:10255/hackfest?ssl=true`)
   mongoose.connect(
     cosmosConnectString,
     {
       user: muser,
-      pass: muser,
+      pass: mpassword,
       useNewUrlParser: true
     }
   );
 } else {
   mongoose.connect(
     'mongodb://nosqldata:27017/demo',
-    {
+    { 
       user: muser,
       pass: mpassword, 
       useNewUrlParser: true,

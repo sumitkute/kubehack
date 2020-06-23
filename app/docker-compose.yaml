@@ -20,7 +20,6 @@ services:
     - APPINSIGHTS_INSTRUMENTATIONKEY=${INSTRUMENTATION_KEY} 
     - MONGODB_USER=${MONGO_USERNAME}
     - MONGODB_PASSWORD=${MONGO_PASSWORD}
-    - NODE_ENV=${NODE_ENV}
     links: 
     - nosqldata
     depends_on: 
