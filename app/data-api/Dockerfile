@@ -8,4 +8,4 @@ COPY . .
 ENV NODE_ENV "development"
 EXPOSE 3009
 
-CMD [ "npm", "run", "local" ]
+CMD [ "npm", "run", "container" ]

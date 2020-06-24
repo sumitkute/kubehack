@@ -1,0 +1,83 @@
+version: '3.8'
+services:
+  nosqldata:
+    image: 'mongo'
+    ports:
+    - "27017:27017"
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+    volumes: 
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+  data-api:
+    build: 
+      context: data-api
+      args:
+      - NODE_ENV=${NODE_ENV} 
+    ports:
+    - "3009:3009"
+    environment:
+    - APPINSIGHTS_INSTRUMENTATIONKEY=${INSTRUMENTATION_KEY} 
+    - MONGODB_USER=${MONGO_USERNAME}
+    - MONGODB_PASSWORD=${MONGO_PASSWORD}
+    links: 
+    - nosqldata
+    depends_on: 
+    - "nosqldata"
+  flights-api:
+    build: 
+      context: flights-api
+    ports:
+    - "3003:3003"
+    environment: 
+      - APPINSIGHTS_INSTRUMENTATIONKEY=${INSTRUMENTATION_KEY}
+      - DATA_SERVICE_URI=${DATA_SERVICE_URI}
+    links: 
+    - data-api
+    depends_on: 
+    - data-api
+  quakes-api:
+    build: 
+      context: quakes-api
+    ports:
+    - "3012:3012"
+    environment: 
+      - APPINSIGHTS_INSTRUMENTATIONKEY=${INSTRUMENTATION_KEY}
+      - DATA_SERVICE_URI=${DATA_SERVICE_URI}
+    links: 
+    - data-api
+    depends_on: 
+    - data-api
+  weather-api:
+    build: 
+      context: weather-api
+    ports:
+    - "3015:3015"
+    environment: 
+      - APPINSIGHTS_INSTRUMENTATIONKEY=${INSTRUMENTATION_KEY}
+      - DATA_SERVICE_URI=${DATA_SERVICE_URI}
+    links: 
+    - data-api
+    depends_on: 
+    - data-api
+  service-tracker-ui:
+    build: 
+      context: service-tracker-ui
+    ports:
+    - "8080:8080"
+    environment: 
+    - APPINSIGHTS_INSTRUMENTATIONKEY=${INSTRUMENTATION_KEY}
+    - QUAKES_API_ROOT=${QUAKES_API_ROOT}
+    - WEATHER_API_ROOT=${WEATHER_API_ROOT}
+    - FLIGHT_API_ROOT=${FLIGHT_API_ROOT}
+    links: 
+    - flights-api
+    - quakes-api
+    - weather-api
+    depends_on: 
+    - flights-api
+    - quakes-api
+    - weather-api
+  
